@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -6,13 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  error: false;
-  email: string;
-  password:string;
+  @Input() uid: string;
+  @Input() name: string;
+  @Input() bio: string;
+  @Input() location: string;
 
-  constructor() { }
+  error: false;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log(this.name + ' ' + this.bio + ' ' + this.location)
+  }
+
+  updateUserData(){
+    this.userService.updateUserData(this.uid, this.name, this.bio, this.location);
   }
 
 }

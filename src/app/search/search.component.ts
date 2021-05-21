@@ -13,8 +13,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   allUsers: any[];
   recommendedUsers: any[];
+  foundUsers: any;
 
   usersSubscription: Subscription;
+
+  timer: any;
 
   constructor(
     private userService: UserService,
@@ -24,39 +27,48 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.usersSubscription = this.userService
       .getAllUsers()
-      .subscribe((data) => {
-        this.allUsers = data.docs.map((e) => e.data());
-        this.generateRecommendedUsers();
+      .subscribe((users) => {
+        this.allUsers = users.docs.map((e) => e.data());
+        this.generateRecommendedUsers([...this.allUsers]);
       });
   }
 
-  private generateRecommendedUsers(): void {
+  private generateRecommendedUsers(users): void {
     this.recommendedUsers = [];
 
-    if (this.allUsers.length < 5) {
-      this.recommendedUsers = this.allUsers;
+    if (users.length < 5) {
+      this.recommendedUsers = users;
     } else {
-      let elemNum = 5;
+      let counter = 5; // maximum number of recommended users
 
-      while (elemNum) {
-        let index = Math.floor(Math.random() * this.allUsers.length);
-        this.recommendedUsers.push(this.allUsers[index]);
+      while (counter) {
+        let index = Math.floor(Math.random() * users.length);
+        this.recommendedUsers.push(users[index]);
 
-        this.allUsers.splice(index, 1);
+        users.splice(index, 1);
 
-        elemNum--;
+        counter--;
       }
     }
   }
 
   public searchOnInput(searchQuery: string): void {
     this.searchQuery = searchQuery;
+    if (this.timer) clearTimeout(this.timer);
 
-    const result = this.allUsers.filter((user) => {
-      return user.name.toLowerCase().includes(searchQuery.toLowerCase());
-    })
+    if (searchQuery) {
+      const result = this.allUsers.filter((user) => {
+        return user.name.toLowerCase().includes(searchQuery.toLowerCase());
+      });
 
-    console.log(result);
+      this.timer = setTimeout(() => {
+        this.foundUsers = result.slice(0, 7);
+      }, 1000);
+    } else {
+      this.timer = setTimeout(() => {
+        this.foundUsers = null;
+      }, 1000);
+    }
   }
 
   ngOnDestroy(): void {

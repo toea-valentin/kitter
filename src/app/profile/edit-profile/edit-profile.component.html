@@ -6,9 +6,8 @@
       [ngClass]="error ? 'is-invalid' : ''"
       id="name"
       required
-      value=""
       name="name"
-      [(ngModel)]="email"
+      [(ngModel)]="name"
     />
     <label for="name">Name</label>
   </div>
@@ -23,9 +22,8 @@
       [ngClass]="error ? 'is-invalid' : ''"
       id="bio"
       required
-      value=""
-      name="password"
-      [(ngModel)]="password"
+      name="bio"
+      [(ngModel)]="bio"
     ></textarea>
     <label for="bio" class="textarea-label">Bio</label>
   </div>
@@ -34,15 +32,17 @@
       type="text"
       class="form-control floating"
       [ngClass]="error ? 'is-invalid' : ''"
-      id="email"
+      id="location"
       required
-      value=""
-      name="email"
-      [(ngModel)]="email"
+      name="location"
+      [(ngModel)]="location"
     />
-    <label for="email">Location</label>
+    <label for="location">Location</label>
   </div>
   <div class="invalid-resp text-danger text-align-center mb-3" *ngIf="error">
     {{ error }}
+  </div>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-3 mb-3" (click)="updateUserData()">Save</button>
   </div>
 </form>

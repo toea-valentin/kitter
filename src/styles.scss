@@ -15,8 +15,70 @@ body {
   border-radius: 15px;
 }
 
-.popover{
+.popover {
   border: 0 solid black;
-  border-radius:15px;
-  box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+  border-radius: 15px;
+  box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px,
+    rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+}
+
+@font-face {
+  font-family: "fontello";
+  src: url("./assets/font/fontello.eot?1418504");
+  src: url("./assets/font/fontello.eot?1418504#iefix")
+      format("embedded-opentype"),
+    url("./assets/font/fontello.woff?1418504") format("woff"),
+    url("./assets/font/fontello.ttf?1418504") format("truetype"),
+    url("./assets/font/fontello.svg?1418504#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.cat-icon {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  text-align: center;
+
+  font-variant: normal;
+  text-transform: none;
+
+  line-height: 1em;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  text-align: center;
+
+  font-variant: normal;
+  text-transform: none;
+
+  line-height: 1em;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-logo:before {
+  content: "\e800";
+}
+
+.cat-logo {
+  transform: scaleX(-1);
+  font-size: 60px;
+  color: #1da1f2;
 }

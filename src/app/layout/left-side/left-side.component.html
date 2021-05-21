@@ -6,7 +6,11 @@
 >
   <div class="left-side-content h-100 d-flex flex-column align-items-start">
     <div class="above flex-grow-1 align-items-center">
-      <div class="logo p-3">LOGO</div>
+      <div class="mt-2 mb-2">
+          <a class="logo d-flex align-items-center justify-content-center" routerLink="/home">
+            <i class="cat-icon icon-logo cat-logo"></i>
+          </a>
+      </div>
       <nav class="menu d-flex flex-column mb-3">
         <a
           *ngFor="let item of menu"

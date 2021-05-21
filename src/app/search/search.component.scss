@@ -1,18 +1,10 @@
 $base-color: rgb(29, 161, 242);
 
-.search-page-content{
+.search-page-content {
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-.search-bar-container {
-  .dropdown-menu.show {
-    width: 100%;
-    min-height: 200px;
-    border-radius: 8px;
-  }
 }
 
 .search-bar {
@@ -42,6 +34,28 @@ $base-color: rgb(29, 161, 242);
 
   .bi {
     color: rgb(91, 112, 131);
+  }
+}
+
+.search-bar-container {
+  .dropdown-menu.show {
+    width: 100%;
+    border-radius: 8px;
+    border: 0px;
+    box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+  }
+}
+
+.search-user-line {
+  font-size: 18px;
+  .search-user-picture {
+    height: 30px;
+    border-radius: 25px;
+  }
+
+  .bi-person-circle {
+    font-size: 30px;
+    color: $base-color;
   }
 }
 

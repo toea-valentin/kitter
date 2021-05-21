@@ -38,7 +38,18 @@ $button-color: rgb(29, 161, 242);
 }
 
 .logo {
-  font-size: 20px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgba(29, 161, 242, 0.2);
+  }
+}
+
+.cat-logo {
+  font-size: 2.5rem;
 }
 
 .menu {
@@ -143,7 +154,7 @@ $button-color: rgb(29, 161, 242);
   background: aliceblue;
 }
 
-.pop-container{
+.pop-container {
   min-width: 225px;
 }
 

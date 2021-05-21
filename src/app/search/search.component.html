@@ -15,9 +15,33 @@
       />
     </div>
     <div ngbDropdownMenu aria-labelledby="dropdownManual">
-      <button ngbDropdownItem>Action - 1</button>
-      <button ngbDropdownItem>Another Action</button>
-      <button ngbDropdownItem>Something else is here</button>
+      <a
+        ngbDropdownItem
+        class="search-user-line d-flex align-items-center"
+        *ngFor="let foundUser of foundUsers"
+        [routerLink]="['/profile', foundUser.uid]"
+      >
+        <i class="bi bi-arrow-return-right mr-3"></i>
+        <i
+          class="bi bi-person-circle d-flex align-items-start mr-2"
+          *ngIf="!foundUser.picture || !foundUser.picture.length"
+        ></i>
+        <img
+          class="search-user-picture mr-2"
+          [src]="foundUser.picture"
+          *ngIf="foundUser.picture || foundUser.picture.length"
+        />
+        <span>{{ foundUser.name }}</span>
+      </a>
+      <p class="p-3 d-flex justify-content-center" *ngIf="!foundUsers">
+        Search for users here!
+      </p>
+      <p
+        class="p-3 d-flex justify-content-center"
+        *ngIf="foundUsers && !foundUsers.length"
+      >
+        No users found!
+      </p>
     </div>
   </div>
 
