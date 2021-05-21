@@ -1,0 +1,17 @@
+<div class="d-flex flex-row">
+  <app-left-side *ngIf="!dimensions.isMobile && showLayout"></app-left-side>
+  <div class="middle" [ngClass]="dimensions.isMobile ? 'mb-6' : ''">
+    <div
+      class="page-title p-3 d-flex aling-items-center justify-content-between"
+      *ngIf="showLayout"
+    >
+      <span class="title">{{ currentPageTitle }}</span>
+      <button class="btn pl-1 pr-1 pb-0 pt-0" (click)="scrollToTop()">
+        <i class="bi bi-arrow-bar-up"></i>
+      </button>
+    </div>
+    <ng-content></ng-content>
+  </div>
+  <app-right-side *ngIf="!dimensions.isSmallScreen && showLayout"></app-right-side>
+  <app-mobile-menu *ngIf="dimensions.isMobile && showLayout"></app-mobile-menu>
+</div>

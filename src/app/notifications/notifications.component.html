@@ -1,0 +1,27 @@
+<div class="w-100 d-flex justify-content-center mt-5" *ngIf="!notifications">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div *ngIf="notifications">
+  <span
+    class="no-notif d-flex justify-content-center mt-3"
+    *ngIf="!notifications.length"
+  >
+    No notifications!
+  </span>
+  <div
+    class="notification-card d-flex align-items-center p-3"
+    *ngFor="let notification of notifications"
+  >
+    <i class="bi bi-person-plus-fill mr-3"></i>
+    <div class="d-flex flex-column justify-content-center">
+      <span>
+        <a class="pr-1" routerLink="/profile/{{ notification.followerId }}">
+          <b>{{ notification.followerName }}</b> </a
+        >{{ notification.message }}
+      </span>
+      <span>{{ transformDateTime(notification.timestamp) }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="post-body d-flex p-3" *ngIf="!deleteAlert">
+  <i
+    *ngIf="!picture || !picture.length"
+    class="bi bi-person-circle d-flex align-items-start"
+  ></i>
+  <img class="user-picture" [src]="picture" *ngIf="picture && picture.length" />
+  <div class="middle d-flex flex-column pl-3 pr-3">
+    <div class="info d-flex">
+      <a class="username mr-3" [routerLink]="['/profile/', uid]">
+        <span>{{ username }}</span>
+      </a>
+      <span class="datetime">{{ date + " - " + time }}</span>
+    </div>
+    <span class="msg">{{ message }}</span>
+    <div class="options d-flex mt-3">
+      <button class="btn like-btn m-0 p-0 d-flex align-items-center">
+        <i class="bi bi-suit-heart d-flex align-items-center mr-2"></i>
+        <span>20</span>
+      </button>
+    </div>
+  </div>
+  <div ngbDropdown display="static">
+    <button class="btn more" id="dropdownBasic1" ngbDropdownToggle>
+      <i class="bi bi-three-dots"></i>
+    </button>
+    <div
+      class="dropdown-menu dropdown-menu-right"
+      ngbDropdownMenu
+      aria-labelledby="dropdownBasic1"
+    >
+      <button ngbDropdownItem *ngIf="canDelete" (click)="deletePost()">
+        <i class="bi bi-trash"></i> Delete
+      </button>
+      <button ngbDropdownItem class="btn">
+        <i class="bi bi-flag"></i> Report
+      </button>
+    </div>
+  </div>
+</div>
+
+<ngb-alert [dismissible]="true" *ngIf="deleteAlert">
+  <strong>Warning!</strong> You just deleted this post.
+</ngb-alert>

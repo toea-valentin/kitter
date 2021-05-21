@@ -1,0 +1,80 @@
+.form-group.floating {
+  height: 55px;
+  margin-bottom: 0px;
+}
+
+.form-group-textarea.floating {
+  height: 130px;
+  margin-bottom: 0px;
+}
+
+.form-control.floating {
+  min-height: 3.3rem;
+  padding-top: 25px;
+  color: black;
+}
+
+textarea.form-control.floating{
+  min-height: 4rem;
+}
+
+
+
+.form-group.floating > label {
+  bottom: 38px;
+  left: 8px;
+  position: relative;
+  background-color: transparent;
+  padding: 0px 5px 0px 5px;
+  font-size: 1.1em;
+  transition: 0.1s;
+  pointer-events: none;
+  font-weight: 500 !important;
+  transform-origin: bottom left;
+  color:rgb(117, 116, 116);
+}
+
+.form-control.floating:focus ~ label {
+  transform: translate(1px, -85%) scale(0.8);
+  opacity: 0.8;
+  color: #005ebf;
+  bottom: 30px;
+}
+
+.form-control.floating:valid ~ label {
+  transform-origin: bottom left;
+  transform: translate(1px, -85%) scale(0.8);
+  opacity: 0.8;
+  bottom: 30px;
+}
+
+
+
+.form-group-textarea.floating > .textarea-label {
+  bottom: 110px;
+  left: 8px;
+  position: relative;
+  background-color: transparent;
+  padding: 0px 5px 0px 5px;
+  font-size: 1.1em;
+  transition: 0.1s;
+  pointer-events: none;
+  font-weight: 500 !important;
+  transform-origin: bottom left;
+  color:rgb(117, 116, 116);
+}
+
+.form-control.floating:focus ~  .textarea-label {
+  transform: translate(1px, -85%) scale(0.8);
+  opacity: 0.8;
+  color: #005ebf;
+  bottom: 105px;
+}
+
+.form-control.floating:valid ~  .textarea-label {
+  transform-origin: bottom left;
+  transform: translate(1px, -85%) scale(0.8);
+  opacity: 0.8;
+  bottom: 105px;
+}
+

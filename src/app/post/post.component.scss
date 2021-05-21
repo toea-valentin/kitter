@@ -1,0 +1,77 @@
+$base-color-lighter: rgba(29, 161, 242, 0.2);
+$base-color: rgb(29, 161, 242);
+
+.post-body {
+  border-bottom: 1px solid #ebeef0;
+
+  .bi-person-circle {
+    font-size: 40px;
+    color: $base-color;
+  }
+
+  .user-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+
+.middle {
+  flex: 1;
+
+  .info {
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+
+  .username {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    @media screen and (max-width: 600px) {
+      width: 60%;
+    }
+  }
+
+  .datetime {
+    color: grey;
+    font-size: 15px;
+    font-weight: normal;
+  }
+
+  .msg {
+    font-size: 16px;
+  }
+}
+
+.like-btn {
+  color: gray;
+
+  .bi-suit-heart {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    color: $base-color;
+
+    .bi-suit-heart {
+      background: $base-color-lighter;
+      box-shadow: 0px 0px 0px 5px $base-color-lighter;
+    }
+  }
+}
+
+.more {
+  padding: 0px;
+  box-shadow: none;
+  height: 20px;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  top: 20px;
+}

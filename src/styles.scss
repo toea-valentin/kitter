@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+body {
+  overflow-y: scroll;
+}
+
+.popover .arrow {
+  padding-left: 3px;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+.popover{
+  border: 0 solid black;
+  border-radius:15px;
+  box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+}

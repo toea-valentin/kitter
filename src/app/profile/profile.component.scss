@@ -1,0 +1,46 @@
+$base-color: rgb(29, 161, 242);
+$button-color: rgb(29, 161, 242);
+
+.cover-picture {
+  max-height: 200px;
+}
+
+.circle {
+  min-height: 150px;
+  min-width: 150px;
+  background: white;
+  border-radius: 50%;
+  margin-top: -75px;
+
+  @media screen and (max-width: 800px) {
+    min-height: 100px;
+    min-width: 100px;
+    margin-top: -50px;
+  }
+
+  .bi::before {
+    font-size: 140px;
+    color: $base-color;
+    background: beige;
+    border-radius: 50%;
+  }
+
+  .user-picture {
+    min-height: 140px;
+    border-radius: 50%;
+
+    @media screen and (max-width: 800px) {
+      min-height: 90px;
+      max-height: 90px;
+    }
+  }
+}
+
+.user-info {
+  min-height: 60px;
+}
+
+.user-name {
+  font-size: 23px;
+  font-weight: bold;
+}

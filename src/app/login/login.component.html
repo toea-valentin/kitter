@@ -1,0 +1,61 @@
+<div class="p-3 go-back">
+  <a routerLink="/home">
+    <i class="bi bi-arrow-left pr-2"></i>
+    <span>Go to start page</span>
+  </a>
+</div>
+<div
+  class="main w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+>
+  <form class="login-form w-100 pl-4 pr-4">
+    <div class="logo">Logo</div>
+    <div class="title mt-3 mb-3"><span>Log in to Kitter</span></div>
+    <div class="form-group floating">
+      <input
+        type="text"
+        class="form-control floating"
+        [ngClass]="error ? 'is-invalid' : ''"
+        id="email"
+        required
+        value=""
+        name="email"
+        [(ngModel)]="email"
+      />
+      <label for="email">Email</label>
+    </div>
+    <div class="form-group floating">
+      <input
+        type="password"
+        class="form-control floating"
+        [ngClass]="error ? 'is-invalid' : ''"
+        id="password"
+        required
+        value=""
+        name="password"
+        [(ngModel)]="password"
+      />
+      <label for="password">Password</label>
+    </div>
+    <div class="invalid-resp text-danger text-align-center mb-3" *ngIf="error">
+      {{ error }}
+    </div>
+    <button class="btn login-button w-100 mb-3" (click)="emailLogin()">
+      Log in
+    </button>
+  </form>
+  <button
+    class="google-button btn btn-outline-dark mb-3 d-flex align-items-center"
+    (click)="googleLogin()"
+  >
+    <div class="google-icon p-2">
+      <img
+        alt="Google sign-in"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+      />
+    </div>
+    Login or Signup With Google
+  </button>
+  <a routerLink="/signup">Sign up for Kitter</a>
+</div>
+
+<div class="form-container"></div>

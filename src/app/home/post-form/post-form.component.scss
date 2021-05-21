@@ -1,0 +1,41 @@
+$icon-color: #1da1f2;
+$button-color: rgb(29, 161, 242);
+
+.post-form-wrapper {
+
+  .bi {
+    font-size: 40px;
+    color: $icon-color;
+  }
+  textarea {
+    border: none;
+    outline: none;
+    font-size: 20px;
+    resize: none;
+
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .separator {
+    width: 100%;
+    background: rgb(235, 238, 240);
+    border-bottom: 1px solid #ebeef0;
+  }
+}
+
+.post-button {
+  min-height: 48px;
+  border-radius: 30px;
+  color: white;
+  background-color: $button-color;
+
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+
+  transition-duration: 0.2s;
+  &:hover {
+    background-color: rgb(22, 128, 194);
+  }
+}

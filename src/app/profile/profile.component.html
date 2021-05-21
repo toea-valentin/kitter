@@ -1,0 +1,145 @@
+<div class="w-100 d-flex justify-content-center mt-5" *ngIf="!user">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="d-flex justify-content-center" *ngIf="user && !user.exists">
+  This user does not exist!
+</div>
+<div class="d-flex flex-column" *ngIf="user && user.exists">
+  <img src="assets/profile-cover.jpg" class="cover-picture w-100" />
+  <div class="d-flex align-items-end justify-content-between pl-4 pr-4">
+    <div class="circle d-flex align-items-center justify-content-center">
+      <i
+        class="bi bi-person-circle"
+        *ngIf="!user || !user.picture || user.picture.length == 0"
+      ></i>
+      <img
+        *ngIf="user && user.picture.length > 0"
+        class="user-picture"
+        [src]="user && user.picture"
+      />
+    </div>
+    <div class="btn-wrapper d-flex align-items-end">
+      <button
+        class="btn btn-primary"
+        *ngIf="!loggedUserProfile && !followed"
+        (click)="followUser()"
+      >
+        Follow
+      </button>
+      <button
+        class="btn btn-secondary"
+        *ngIf="!loggedUserProfile && followed"
+        (click)="unfollowUser()"
+      >
+        Unfollow
+      </button>
+      <button
+        class="btn btn-primary mr-2"
+        *ngIf="loggedUserProfile"
+        (click)="open(content)"
+      >
+        Edit profile
+      </button>
+      <button
+        class="btn btn-danger"
+        *ngIf="loggedUserProfile"
+        (click)="logOut()"
+      >
+        Sign Out
+      </button>
+    </div>
+  </div>
+  <div class="user-info d-flex flex-column mt-2 mb-2 pl-4 pr-4">
+    <span class="user-name">{{ user && user.name }}</span>
+    <span class="user-bio">{{ user && user.bio }}</span>
+  </div>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs nav-fill">
+    <li ngbNavItem>
+      <a ngbNavLink>Posts</a>
+      <ng-template ngbNavContent>
+        <div class="d-flex flex-column">
+          <div
+            class="d-flex justify-content-center mt-3 mb-3"
+            *ngIf="posts && posts.length == 0"
+          >
+            No posts yet!
+          </div>
+          <div *ngFor="let p of posts">
+            <app-post [props]="p"></app-post>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>
+        <span> Following </span>
+        <b>{{ following && following.length }}</b>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="d-flex flex-column">
+          <div
+            class="d-flex justify-content-center mt-3 mb-3"
+            *ngIf="following && following.length == 0"
+          >
+            Not following anyone yet!
+          </div>
+          <div *ngFor="let f of following">
+            <app-following-card [props]="f"></app-following-card>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>
+        <span> Followers </span>
+        <b>{{ followers && followers.length }}</b>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="d-flex flex-column">
+          <div
+            class="d-flex justify-content-center mt-3 mb-3"
+            *ngIf="followers && followers.length == 0"
+          >
+            Not followed by anyone yet!
+          </div>
+          <div *ngFor="let f of followers">
+            <app-follower-card
+              [uid]="f.uid"
+              [username]="f.name"
+              [picture]="f.picture"
+            ></app-follower-card>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-edit-profile></app-edit-profile>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

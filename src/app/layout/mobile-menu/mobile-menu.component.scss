@@ -1,0 +1,59 @@
+$base-color: rgb(29, 161, 242);
+
+:host {
+  position: fixed;
+  bottom: 0;
+  background: white;
+  width: 100%;
+  border-top: 1px solid #e1e4e6;
+}
+
+.menu {
+  .menu-item-wrapper {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 23px;
+    color: #0f1419;
+
+    .menu-item {
+      border-radius: 30px;
+    }
+
+    &:hover {
+      color: $base-color;
+      .menu-item {
+        background-color: rgba(29, 161, 242, 0.2);
+        transition: 0.2s;
+      }
+    }
+  }
+}
+
+.icon {
+  font-size: 1.9rem;
+}
+
+.inactive-menu-item {
+  color: rgb(91, 112, 131);
+}
+
+.active-menu-item {
+  color: $base-color;
+}
+
+.add-new-post {
+  position: fixed;
+  right: 0.6rem;
+  bottom: 5rem;
+
+  .btn {
+    width: 60px;
+    height: 60px;
+    color: white;
+    font-size: 1.8rem;
+    border-radius: 50%;
+    background: $base-color;
+    box-shadow: rgb(0 0 0 / 20%) 0px 8px 28px;
+  }
+}

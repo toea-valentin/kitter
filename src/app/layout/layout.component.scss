@@ -1,0 +1,60 @@
+$base-color: rgb(29, 161, 242);
+$base-color-lighter: rgba(29, 161, 242, 0.2);
+
+.middle {
+  min-width: 600px;
+  width: 100%;
+  border-left: 1px solid #ebeef0;
+  border-right: 1px solid #ebeef0;
+
+  @media screen and (max-width: 450px) {
+    margin-bottom: 3.9rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    min-width: 600px;
+  }
+
+  @media screen and (max-width: 700px) {
+    min-width: 300px;
+  }
+}
+
+.page-title {
+  background: white;
+  border-bottom: 1px solid #ebeef0;
+  top: 0;
+  position: sticky;
+  z-index: 1020;
+
+  .title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .btn {
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:hover {
+      color: $base-color;
+
+      .bi-arrow-bar-up::before {
+        background: $base-color-lighter;
+        box-shadow: 0px 0px 0px 10px $base-color-lighter;
+      }
+    }
+  }
+
+  .bi-arrow-bar-up {
+    display: flex;
+    align-items: center;
+
+    &::before {
+      font-size: 22px;
+      border-radius: 10px;
+      transition: 0.2s;
+    }
+  }
+}

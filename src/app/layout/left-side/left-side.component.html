@@ -1,0 +1,111 @@
+<header
+  class="left-side d-flex flex-column"
+  [ngClass]="
+    dimensions.isMediumToSmallScreen ? 'align-items-center' : 'align-items-end'
+  "
+>
+  <div class="left-side-content h-100 d-flex flex-column align-items-start">
+    <div class="above flex-grow-1 align-items-center">
+      <div class="logo p-3">LOGO</div>
+      <nav class="menu d-flex flex-column mb-3">
+        <a
+          *ngFor="let item of menu"
+          class="menu-item-wrapper"
+          routerLink="/{{ item && item.path }}"
+        >
+          <div
+            class="d-flex mb-2 mt-2"
+            *ngIf="
+              item.path !== '/search' ||
+              (item.path === '/search' && dimensions.isMediumToSmallScreen)
+            "
+            [ngClass]="
+              dimensions.isMediumScreen ? 'justify-content-center' : ''
+            "
+          >
+            <div
+              class="menu-item p-3 d-flex"
+              [ngClass]="
+                item && currentRoute === item.path ? 'active-menu-item' : ''
+              "
+            >
+              <i
+                class="icon bi"
+                [ngClass]="
+                  currentRoute !== item.path ? item.icon : item.activeIcon
+                "
+              ></i>
+              <span
+                *ngIf="!dimensions.isMediumScreen"
+                class="menu-item-text mr-3 ml-3 d-flex align-items-center"
+              >
+                {{ item.name }}
+              </span>
+            </div>
+          </div>
+        </a>
+      </nav>
+      <div class="btn-wrapper w-100 d-flex justify-content-center">
+        <button
+          class="btn tweet-button p-3"
+          [ngClass]="!dimensions.isMediumScreen ? 'w-100' : ''"
+          (click)="openPostModal(createPostModal)"
+        >
+          <span *ngIf="!dimensions.isMediumScreen">Tweet</span>
+          <i
+            *ngIf="dimensions.isMediumScreen"
+            class="bi bi-pencil tweet-icon"
+          ></i>
+        </button>
+      </div>
+    </div>
+    <div class="below w-100 mb-3 d-flex justify-content-center w-100">
+      <button
+        class="user-button d-flex align-items-center justify-content-center"
+        placement="top-left"
+        popoverClass="popover-user"
+        [ngbPopover]="popContent"
+      >
+        <i class="bi bi-person-circle pl-1 pr-1"></i>
+        <div
+          *ngIf="!dimensions.isMediumScreen"
+          class="user-data d-flex flex-column justify-content-center pl-2"
+        >
+          <span class="user-button-text name">
+            {{ loggedUser ? loggedUser.name : "Login / Register" }}
+          </span>
+          <span class="user-button-text" *ngIf="loggedUser">Welcome Back!</span>
+        </div>
+        <i
+          *ngIf="!dimensions.isMediumScreen"
+          class="bi bi-three-dots-vertical"
+        ></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<ng-template #popContent>
+  <div class="pop-container">
+    <p *ngIf="loggedUser">
+      <b>{{ loggedUser.name }}</b>
+    </p>
+    <p *ngIf="loggedUser">{{ loggedUser.email }}</p>
+    <a class="btn w-100" *ngIf="loggedUser" (click)="logOut()">Log out</a>
+    <a class="btn w-100" *ngIf="!loggedUser" routerLink="/login">Login</a>
+  </div>
+</ng-template>
+
+<ng-template #createPostModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Post a Tweet</h4>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-post-form
+      (messageSent)="closePostModal($event, modal)"
+    ></app-post-form>
+  </div>
+</ng-template>

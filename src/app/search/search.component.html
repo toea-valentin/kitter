@@ -1,0 +1,56 @@
+<div class="search-page-content">
+  <div class="search-bar-container" ngbDropdown #searchDrop="ngbDropdown">
+    <div
+      class="search-bar w-100 pl-3 pr-3 pt-2 pb-2 d-flex align-items-center"
+      id="dropdownManual"
+      ngbDropdownAnchor
+    >
+      <i class="bi bi-search pr-3"></i>
+      <input
+        type="text"
+        placeholder="Search for all"
+        class="w-100"
+        (input)="searchOnInput($event.target.value)"
+        (click)="searchDrop.open()"
+      />
+    </div>
+    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+      <button ngbDropdownItem>Action - 1</button>
+      <button ngbDropdownItem>Another Action</button>
+      <button ngbDropdownItem>Something else is here</button>
+    </div>
+  </div>
+
+  <div class="card-panel mb-4 mt-4 pt-3 pb-3 d-flex flex-column">
+    <span class="card-title ml-3 mr-3">You might like</span>
+    <div
+      class="w-100 d-flex justify-content-center mt-5"
+      *ngIf="!recommendedUsers"
+    >
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <a
+      class="user-line"
+      *ngFor="let user of recommendedUsers"
+      [routerLink]="'/profile/' + user.uid"
+    >
+      <div class="p-2 d-flex align-items-center">
+        <i
+          class="bi bi-person-circle d-flex align-items-start"
+          *ngIf="!user.picture || !user.picture.length"
+        ></i>
+        <img
+          class="user-picture"
+          [src]="user.picture"
+          *ngIf="user.picture && user.picture.length"
+        />
+        <div class="d-flex flex-column ml-3">
+          <span class="user-name">{{ user.name }}</span>
+          <span class="">{{ user.location }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<nav class="menu d-flex justify-content-between pl-2 pr-2">
+  <a
+    *ngFor="let item of menu"
+    class="menu-item-wrapper mb-2 mt-2"
+    routerLink="/{{ item.path }}"
+  >
+    <div class="d-flex justify-content-center">
+      <div
+        class="menu-item p-2 d-flex"
+        [ngClass]="
+          currentRoute === item.path ? 'active-menu-item' : 'inactive-menu-item'
+        "
+      >
+        <i
+          class="icon bi"
+          [ngClass]="currentRoute !== item.path ? item.icon : item.activeIcon"
+        ></i>
+      </div>
+    </div>
+  </a>
+</nav>
+
+<div class="add-new-post">
+  <button class="btn" (click)="openPostModal(createPostModal)">
+    <i class="bi bi-pencil tweet-icon"></i>
+  </button>
+</div>
+
+<ng-template #createPostModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Post a Tweet</h4>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-post-form
+      (messageSent)="closePostModal($event, modal)"
+    ></app-post-form>
+  </div>
+</ng-template>

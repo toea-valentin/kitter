@@ -1,0 +1,79 @@
+$button-color: rgb(29, 161, 242);
+
+.go-back{
+  font-size:1.2rem;
+}
+
+
+.signup-form {
+  max-width: 400px;
+}
+
+.logo{
+  font-size: 2rem;
+}
+
+.title{
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.form-group.floating {
+  height: 55px;
+  margin-bottom: 0.5rem;
+}
+
+.form-control.floating {
+  height: 3.3rem;
+  padding-top: 25px;
+  color: black;
+}
+
+.form-group.floating > label {
+  bottom: 38px;
+  left: 8px;
+  position: relative;
+  background-color: transparent;
+  padding: 0px 5px 0px 5px;
+  font-size: 1.1em;
+  transition: 0.1s;
+  pointer-events: none;
+  font-weight: 500 !important;
+  transform-origin: bottom left;
+  color:rgb(117, 116, 116);
+}
+
+.form-control.floating:focus ~ label {
+  transform: translate(1px, -85%) scale(0.8);
+  opacity: 0.8;
+  color: #005ebf;
+  bottom: 30px;
+}
+
+.form-control.floating:valid ~ label {
+  transform-origin: bottom left;
+  transform: translate(1px, -85%) scale(0.8);
+  opacity: 0.8;
+  bottom: 30px;
+}
+
+
+.login-button{
+  min-height: 48px;
+  border-radius: 30px;
+  color: white;
+  background-color: $button-color;
+
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+
+  transition-duration: 0.2s;
+  &:hover {
+    background-color: rgb(22, 128, 194);
+  }
+}
+
+.google-button{
+  border-radius: 30px;
+}

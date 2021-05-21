@@ -1,0 +1,48 @@
+<form class="login-form w-100 pl-4 pr-4">
+  <div class="form-group floating mb-2">
+    <input
+      type="text"
+      class="form-control floating"
+      [ngClass]="error ? 'is-invalid' : ''"
+      id="name"
+      required
+      value=""
+      name="name"
+      [(ngModel)]="email"
+    />
+    <label for="name">Name</label>
+  </div>
+  <div class="form-group-textarea floating mb-2">
+    <textarea
+      type="textarea"
+      rows="4"
+      cols="100"
+      maxlength="160"
+      style="resize: none;"
+      class="form-control floating"
+      [ngClass]="error ? 'is-invalid' : ''"
+      id="bio"
+      required
+      value=""
+      name="password"
+      [(ngModel)]="password"
+    ></textarea>
+    <label for="bio" class="textarea-label">Bio</label>
+  </div>
+  <div class="form-group floating mb-2">
+    <input
+      type="text"
+      class="form-control floating"
+      [ngClass]="error ? 'is-invalid' : ''"
+      id="email"
+      required
+      value=""
+      name="email"
+      [(ngModel)]="email"
+    />
+    <label for="email">Location</label>
+  </div>
+  <div class="invalid-resp text-danger text-align-center mb-3" *ngIf="error">
+    {{ error }}
+  </div>
+</form>
