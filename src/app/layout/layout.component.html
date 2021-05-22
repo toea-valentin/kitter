@@ -1,6 +1,10 @@
 <div class="d-flex flex-row">
   <app-left-side *ngIf="!dimensions.isMobile && showLayout"></app-left-side>
-  <div class="middle" [ngClass]="dimensions.isMobile ? 'mb-6' : ''">
+  <div
+    class="middle"
+    [ngClass]="dimensions.isMobile && 'mb-6'"
+    [ngClass]="!showLayout && 'no-layout-middle'"
+  >
     <div
       class="page-title p-3 d-flex aling-items-center justify-content-between"
       *ngIf="showLayout"
@@ -12,6 +16,8 @@
     </div>
     <ng-content></ng-content>
   </div>
-  <app-right-side *ngIf="!dimensions.isSmallScreen && showLayout"></app-right-side>
+  <app-right-side
+    *ngIf="!dimensions.isSmallScreen && showLayout"
+  ></app-right-side>
   <app-mobile-menu *ngIf="dimensions.isMobile && showLayout"></app-mobile-menu>
 </div>

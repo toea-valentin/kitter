@@ -9,7 +9,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit {
   showLayout = true;
   currentRoute: string;
-  excludedRoutes: string[] = ['/login', '/signup'];
+  excludedRoutes: string[] = ['/','/login', '/signup'];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 

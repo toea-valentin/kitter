@@ -2,7 +2,6 @@ $icon-color: #1da1f2;
 $button-color: rgb(29, 161, 242);
 
 .post-form-wrapper {
-
   .bi {
     font-size: 40px;
     color: $icon-color;
@@ -27,6 +26,8 @@ $button-color: rgb(29, 161, 242);
 .post-button {
   min-height: 48px;
   border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
   color: white;
   background-color: $button-color;
 

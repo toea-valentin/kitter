@@ -46,8 +46,15 @@ $base-color: rgb(29, 161, 242);
   }
 }
 
+.search-info{
+  font-size: 1.3rem;
+  color: gray;
+}
+
 .search-user-line {
   font-size: 18px;
+  font-weight: bold;
+  
   .search-user-picture {
     height: 30px;
     border-radius: 25px;

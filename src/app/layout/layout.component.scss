@@ -20,6 +20,12 @@ $base-color-lighter: rgba(29, 161, 242, 0.2);
   }
 }
 
+.no-layout-middle{
+  border-left: none;
+  border-right: none;
+  margin: 0;
+}
+
 .page-title {
   background: white;
   border-bottom: 1px solid #ebeef0;

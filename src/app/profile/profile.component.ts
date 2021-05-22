@@ -2,10 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { User } from '../shared/interfaces/user';
 import { PostService } from '../shared/services/post.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 import { FollowService } from '../shared/services/follow.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -25,10 +26,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   followed = false;
 
   closeResult = '';
-  userObservable: any;
-  userFollowingObservable: any;
-  userFollowersObservable: any;
-  postsObservable: any;
+  userSubscription: Subscription;
+  userFollowingSubscription: Subscription;
+  userFollowersSubscription: Subscription;
+  postsSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -64,9 +65,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private initUserData(id: string) {
-    this.userObservable = this.userService.getUserData(id).subscribe((data) => {
-      if (data.docs[0]) {
-        this.user = data.docs[0].data();
+    this.userSubscription = this.userService.getUserData(id).subscribe((data) => {
+      if (data.length && data[0].payload.doc.data()) {
+        this.user = data[0].payload.doc.data()
         this.user = { ...this.user, exists: true };
         this.isLoggedUserProfile();
         this.getPosts();
@@ -82,7 +83,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private getPosts() {
-    this.postsObservable = this.postService
+    this.postsSubscription = this.postService
       .getPostsFromUser(this.user.uid)
       .subscribe(
         (data) =>
@@ -131,7 +132,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private getUserFollowing() {
     if (this.user) {
-      this.userFollowingObservable = this.followService
+      this.userFollowingSubscription = this.followService
         .getUserFollowing(this.user.uid)
         .subscribe((data) => {
           this.following = data.map((e) => e.payload.doc.data());
@@ -141,7 +142,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private getUserFollowers() {
     if (this.user) {
-      this.userFollowersObservable = this.followService
+      this.userFollowersSubscription = this.followService
         .getUserFollowers(this.user.uid)
         .subscribe((data) => {
           this.followers = data.map((e) => e.payload.doc.data());
@@ -153,34 +154,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.authService.logOut();
   }
 
-  open(content) {
+  openProfileUpdateModal(content) {
     this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+      .open(content);
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  closeProfileUpdateModal(val: boolean, modal) {
+    if (val) modal.close();
   }
 
   private cleanObservables() {
-    this.userObservable && this.userObservable.unsubscribe();
-    this.postsObservable && this.postsObservable.unsubscribe();
-    this.userFollowingObservable && this.userFollowingObservable.unsubscribe();
-    this.userFollowersObservable && this.userFollowersObservable.unsubscribe();
+    this.userSubscription && this.userSubscription.unsubscribe();
+    this.postsSubscription && this.postsSubscription.unsubscribe();
+    this.userFollowingSubscription && this.userFollowingSubscription.unsubscribe();
+    this.userFollowersSubscription && this.userFollowersSubscription.unsubscribe();
   }
 
   ngOnDestroy() {

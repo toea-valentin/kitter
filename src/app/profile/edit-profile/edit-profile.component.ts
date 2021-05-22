@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+  styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
   @Input() uid: string;
@@ -12,16 +12,33 @@ export class EditProfileComponent implements OnInit {
   @Input() bio: string;
   @Input() location: string;
 
-  error: false;
+  @Output() profileUpdated = new EventEmitter<boolean>(false);
 
-  constructor(private userService: UserService) { }
+  error: string = '';
 
-  ngOnInit(): void {
-    console.log(this.name + ' ' + this.bio + ' ' + this.location)
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {}
+
+  updateUserData() {
+    this.validateForm();
+
+    !this.error &&
+      this.userService
+        .updateUserData(this.uid, this.name, this.bio, this.location)
+        .toPromise()
+        .then(() => this.profileUpdated.emit(true));
   }
 
-  updateUserData(){
-    this.userService.updateUserData(this.uid, this.name, this.bio, this.location);
-  }
+  private validateForm() {
+    this.error = '';
 
+    if (
+      this.name.length < 2 &&
+      this.bio.length < 2 &&
+      this.location.length < 2
+    ) {
+      this.error = 'Fields must have at least 2 characters.';
+    }
+  }
 }

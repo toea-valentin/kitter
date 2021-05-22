@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getUserData()
       .subscribe((data) => {
         this.loggedUser = data;
-        this.followingIds.push(data && data.uid); // get their own posts
+        this.followingIds.push(data && data.uid); // a user follows themselves by default
 
         if (data) {
           if (this.followSubscription) this.followSubscription.unsubscribe();
@@ -57,7 +57,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   private generateFeed(): void {
     this.postSubscription = this.postService.getAllPosts().subscribe((data) => {
       this.posts = data
-        .map((e) => e.payload.doc.data())
+        .map((e) => {
+          const obj: Object = e.payload.doc.data();
+          return { ...obj, id: e.payload.doc.id };
+        })
         .filter((data) => {
           for (let id of this.followingIds) {
             if (data['uid'] === id) {

@@ -1,3 +1,5 @@
+$button-color: rgb(29, 161, 242);
+
 .form-group.floating {
   height: 55px;
   margin-bottom: 0px;
@@ -14,11 +16,9 @@
   color: black;
 }
 
-textarea.form-control.floating{
+textarea.form-control.floating {
   min-height: 4rem;
 }
-
-
 
 .form-group.floating > label {
   bottom: 38px;
@@ -31,7 +31,7 @@ textarea.form-control.floating{
   pointer-events: none;
   font-weight: 500 !important;
   transform-origin: bottom left;
-  color:rgb(117, 116, 116);
+  color: rgb(117, 116, 116);
 }
 
 .form-control.floating:focus ~ label {
@@ -48,8 +48,6 @@ textarea.form-control.floating{
   bottom: 30px;
 }
 
-
-
 .form-group-textarea.floating > .textarea-label {
   bottom: 110px;
   left: 8px;
@@ -61,20 +59,37 @@ textarea.form-control.floating{
   pointer-events: none;
   font-weight: 500 !important;
   transform-origin: bottom left;
-  color:rgb(117, 116, 116);
+  color: rgb(117, 116, 116);
 }
 
-.form-control.floating:focus ~  .textarea-label {
+.form-control.floating:focus ~ .textarea-label {
   transform: translate(1px, -85%) scale(0.8);
   opacity: 0.8;
   color: #005ebf;
   bottom: 105px;
 }
 
-.form-control.floating:valid ~  .textarea-label {
+.form-control.floating:valid ~ .textarea-label {
   transform-origin: bottom left;
   transform: translate(1px, -85%) scale(0.8);
   opacity: 0.8;
   bottom: 105px;
 }
 
+.save-button {
+  min-height: 48px;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  background-color: $button-color;
+
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+
+  transition-duration: 0.2s;
+  &:hover {
+    background-color: rgb(22, 128, 194);
+  }
+}

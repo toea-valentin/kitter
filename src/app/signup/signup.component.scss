@@ -1,19 +1,21 @@
 $button-color: rgb(29, 161, 242);
 
-.go-back{
-  font-size:1.2rem;
+.go-back {
+  font-size: 1.2rem;
+  .wrapper {
+    max-width: 400px;
+  }
 }
-
 
 .signup-form {
   max-width: 400px;
 }
 
-.logo{
+.logo {
   font-size: 2rem;
 }
 
-.title{
+.title {
   font-weight: 700;
   font-size: 32px;
 }
@@ -40,7 +42,7 @@ $button-color: rgb(29, 161, 242);
   pointer-events: none;
   font-weight: 500 !important;
   transform-origin: bottom left;
-  color:rgb(117, 116, 116);
+  color: rgb(117, 116, 116);
 }
 
 .form-control.floating:focus ~ label {
@@ -57,8 +59,7 @@ $button-color: rgb(29, 161, 242);
   bottom: 30px;
 }
 
-
-.login-button{
+.login-button {
   min-height: 48px;
   border-radius: 30px;
   color: white;
@@ -74,6 +75,6 @@ $button-color: rgb(29, 161, 242);
   }
 }
 
-.google-button{
+.google-button {
   border-radius: 30px;
 }

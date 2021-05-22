@@ -27,6 +27,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { SearchComponent } from './search/search.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { PostFormComponent } from './home/post-form/post-form.component';
+import { StartPageComponent } from './start-page/start-page.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PostFormComponent } from './home/post-form/post-form.component';
     SearchComponent,
     MyProfileComponent,
     PostFormComponent,
+    StartPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,18 +7,24 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
-import { AuthGuard } from './shared/services/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { NegateAuthGuard } from './shared/guards/negate-auth.guard';
 import { SignupComponent } from './signup/signup.component';
+import { StartPageComponent } from './start-page/start-page.component';
 
+//AuthGuard - for routes used by a logged user
+//NegateAuthGuard - for routes that can be accessed only by an unlogged user
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
     pathMatch: 'full',
+    component: StartPageComponent,
+    canActivate: [NegateAuthGuard],
   },
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'explore',
@@ -31,6 +37,7 @@ const routes: Routes = [
   {
     path: 'my-profile',
     component: MyProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile/:id',
@@ -39,24 +46,27 @@ const routes: Routes = [
   {
     path: 'notifications',
     component: NotificationsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [NegateAuthGuard],
   },
   {
     path: 'signup',
     component: SignupComponent,
+    canActivate: [NegateAuthGuard],
   },
   {
     path: '**',
-    redirectTo: '/home',
+    redirectTo: '/explore',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [AuthGuard, NegateAuthGuard],
 })
 export class AppRoutingModule {}

@@ -51,14 +51,14 @@
       </nav>
       <div class="btn-wrapper w-100 d-flex justify-content-center">
         <button
-          class="btn tweet-button p-3"
+          class="btn post-button p-3"
           [ngClass]="!dimensions.isMediumScreen ? 'w-100' : ''"
           (click)="openPostModal(createPostModal)"
         >
-          <span *ngIf="!dimensions.isMediumScreen">Tweet</span>
+          <span *ngIf="!dimensions.isMediumScreen">Kitte</span>
           <i
             *ngIf="dimensions.isMediumScreen"
-            class="bi bi-pencil tweet-icon"
+            class="bi bi-pencil post-icon"
           ></i>
         </button>
       </div>
@@ -76,9 +76,9 @@
           class="user-data d-flex flex-column justify-content-center pl-2"
         >
           <span class="user-button-text name">
-            {{ loggedUser ? loggedUser.name : "Login / Register" }}
+            {{ loggedUser ? loggedUser.name : "Account" }}
           </span>
-          <span class="user-button-text" *ngIf="loggedUser">Welcome Back!</span>
+          <span class="user-button-text" *ngIf="loggedUser">Welcome back!</span>
         </div>
         <i
           *ngIf="!dimensions.isMediumScreen"
@@ -91,18 +91,21 @@
 
 <ng-template #popContent>
   <div class="pop-container">
-    <p *ngIf="loggedUser">
-      <b>{{ loggedUser.name }}</b>
-    </p>
-    <p *ngIf="loggedUser">{{ loggedUser.email }}</p>
-    <a class="btn w-100" *ngIf="loggedUser" (click)="logOut()">Log out</a>
-    <a class="btn w-100" *ngIf="!loggedUser" routerLink="/login">Login</a>
+    <div class="user-info d-flex flex-column p-3" *ngIf="loggedUser">
+      <span class="username">
+        <b>{{ loggedUser.name }}</b>
+      </span>
+      <span>{{ loggedUser.email }}</span>
+    </div>
+    <a class="btn w-100 p-3" *ngIf="loggedUser" (click)="logOut()">Log Out</a>
+    <a class="btn w-100 p-3 mb-1" *ngIf="!loggedUser" routerLink="/signup">Sign Up</a>
+    <a class="btn w-100 p-3" *ngIf="!loggedUser" routerLink="/login">Login</a>
   </div>
 </ng-template>
 
 <ng-template #createPostModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Post a Tweet</h4>
+    <h4 class="modal-title" id="modal-basic-title">Write a post</h4>
     <button type="button" class="close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>

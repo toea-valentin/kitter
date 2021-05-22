@@ -69,6 +69,7 @@ export class PostComponent implements OnInit, OnDestroy {
   deletePost(): void {
     this.deleteAlert = true;
     setTimeout(() => {
+      console.log(this.id);
       this.postService.deletePost(this.id);
     }, 3000);
   }

@@ -5,9 +5,11 @@
   ></i>
   <img *ngIf="picture && picture.length" class="user-picture" [src]="picture" />
   <div class="middle d-flex flex-column justify-content-center pl-3 pr-3">
-    <a class="username mr-3" [routerLink]="['/profile/', uid]">
-      <span>{{ username }}</span>
-    </a>
+    <div class="d-flex">
+      <a class="username mr-3 pb-2 pt-2" [routerLink]="['/profile/', uid]">
+        <span>{{ username }}</span>
+      </a>
+    </div>
   </div>
   <button
     class="btn btn-primary"

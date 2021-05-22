@@ -23,8 +23,8 @@ $button-color: rgb(29, 161, 242);
   padding-right: 1.5rem;
 
   @media screen and (max-width: 1250px) {
-    padding-left: 0rem;
-    padding-right: 0rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
   }
 
   @media screen and (max-width: 1000px) {
@@ -83,7 +83,7 @@ $button-color: rgb(29, 161, 242);
   color: $base-color;
 }
 
-.tweet-button {
+.post-button {
   height: 54px;
   border-radius: 30px;
   color: white;
@@ -100,14 +100,14 @@ $button-color: rgb(29, 161, 242);
   }
 }
 
-.tweet-icon {
+.post-icon {
   font-size: 20px;
 }
 
 .user-button {
   padding-left: 10px;
   padding-right: 10px;
-  min-width: 250px;
+  min-width: 230px;
   width: 100%;
   border-radius: 60px;
   outline: none;
@@ -118,10 +118,9 @@ $button-color: rgb(29, 161, 242);
   @media screen and (max-width: 1250px) {
     min-width: 45px;
     max-width: 65px;
+    width: 62px;
     padding-left: 0px;
     padding-right: 0px;
-    margin-right: 5px;
-    margin-left: 5px;
   }
 
   &:hover {
@@ -137,6 +136,7 @@ $button-color: rgb(29, 161, 242);
 
   .user-button-text {
     text-align: start;
+    font-size: 14px;
   }
 
   .name {
@@ -155,7 +155,22 @@ $button-color: rgb(29, 161, 242);
 }
 
 .pop-container {
-  min-width: 225px;
+  min-width: 206px;
+
+  .user-info {
+    .username {
+      font-size: 1.2rem;
+    }
+  }
+
+  a {
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 25px;
+    &:hover {
+      background-color: rgb(243, 242, 242);
+    }
+  }
 }
 
 .popover .arrow {
