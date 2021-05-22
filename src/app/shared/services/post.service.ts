@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
-import { BehaviorSubject } from 'rxjs';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -21,6 +20,7 @@ export class PostService {
       message: message,
       username: user.name,
       picture: user.picture,
+      likes: []
     };
 
     this.firestore
@@ -54,7 +54,17 @@ export class PostService {
       .get();
   }
 
-  async deletePost(id: string) {
-    await this.firestore.collection('messages').doc(id).delete();
+  addLikeToPost(postId: string, userId: string){
+    return this.firestore
+    .collection('messages').doc(postId).update({likes: firebase.firestore.FieldValue.arrayUnion(userId)});
+  }
+
+  deleteLikeFromPost(postId: string, userId: string){
+    return this.firestore
+    .collection('messages').doc(postId).update({likes: firebase.firestore.FieldValue.arrayRemove(userId)});
+  }
+
+  async deletePost(postId: string) {
+    await this.firestore.collection('messages').doc(postId).delete();
   }
 }

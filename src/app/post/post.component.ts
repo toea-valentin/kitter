@@ -14,6 +14,8 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() props: any;
 
   currUser: User;
+  likedByLoggedUser: boolean;
+
   uid: string = '';
   username: string = '';
   picture: string = '';
@@ -21,6 +23,8 @@ export class PostComponent implements OnInit, OnDestroy {
   date: any = '';
   time: string = '';
   id: string = '';
+  likes: string[];
+
   canDelete: boolean;
   deleteAlert: boolean = false;
 
@@ -28,8 +32,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private postService: PostService,
-    private userService: UserService
+    private postService: PostService
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +54,12 @@ export class PostComponent implements OnInit, OnDestroy {
       this.date = dateArr.join(' ');
 
       this.time = this.props.timestamp.toDate().toLocaleTimeString('en-US');
+      if(this.props.likes){
+        this.likes = this.props.likes;
+
+        if(this.currUser)
+        this.likedByLoggedUser = this.likes.includes(this.currUser.uid) ? true: false;
+      }
     }
   }
 
@@ -72,5 +81,13 @@ export class PostComponent implements OnInit, OnDestroy {
       console.log(this.id);
       this.postService.deletePost(this.id);
     }, 3000);
+  }
+
+  likePost(): void {
+    this.currUser && this.postService.addLikeToPost(this.id, this.currUser.uid);
+  }
+
+  unlikePost(): void {
+    this.currUser && this.postService.deleteLikeFromPost(this.id, this.currUser.uid);
   }
 }

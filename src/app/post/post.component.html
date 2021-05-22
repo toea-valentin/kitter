@@ -13,9 +13,21 @@
     </div>
     <span class="msg">{{ message }}</span>
     <div class="options d-flex mt-3">
-      <button class="btn like-btn m-0 p-0 d-flex align-items-center">
-        <i class="bi bi-suit-heart d-flex align-items-center mr-2"></i>
-        <span>20</span>
+      <button
+        class="btn like-btn m-0 p-0 d-flex align-items-center"
+        *ngIf="!likedByLoggedUser"
+        (click)="likePost()"
+      >
+        <i class="bi bi-heart mr-2"></i>
+        <span>{{ likes && likes.length }}</span>
+      </button>
+      <button
+        class="btn dislike-btn like-btn m-0 p-0 d-flex align-items-center"
+        *ngIf="likedByLoggedUser"
+        (click)="unlikePost()"
+      >
+        <i class="bi bi-heart-fill mr-2"></i>
+        <span>{{ likes && likes.length }}</span>
       </button>
     </div>
   </div>

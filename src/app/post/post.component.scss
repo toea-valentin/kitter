@@ -1,5 +1,7 @@
 $base-color-lighter: rgba(29, 161, 242, 0.2);
 $base-color: rgb(29, 161, 242);
+$like-color: #e24b5e;
+$like-color-lighter: #fce6e9;
 
 .post-body {
   border-bottom: 1px solid #ebeef0;
@@ -47,17 +49,40 @@ $base-color: rgb(29, 161, 242);
 
 .like-btn {
   color: gray;
+  outline: 0;
+  box-shadow: none;
 
-  .bi-suit-heart {
+  .bi-heart {
+    width: 24px;
     border-radius: 50%;
   }
 
   &:hover {
-    color: $base-color;
+    color: $like-color;
 
-    .bi-suit-heart {
-      background: $base-color-lighter;
-      box-shadow: 0px 0px 0px 5px $base-color-lighter;
+    .bi-heart {
+      background: $like-color-lighter;
+      box-shadow: 0px -2px 0px 5px $like-color-lighter;
+    }
+  }
+}
+
+.dislike-btn {
+  outline: 0;
+  box-shadow: none;
+  color: $like-color;
+
+  .bi-heart-fill {
+    width: 24px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    color: $like-color;
+
+    .bi-heart-fill {
+      background: $like-color-lighter;
+      box-shadow: 0px -2px 0px 5px $like-color-lighter;
     }
   }
 }
