@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 import { menu, MenuItem } from '../../shared/objects/menu';
+import { BreakpointsListener } from '../../shared/objects/breakpoints-listener';
 
 @Component({
   selector: 'app-left-side',
@@ -20,6 +21,8 @@ export class LeftSideComponent implements OnInit, OnDestroy {
     isMediumToSmallScreen: false,
     isSmallScreen: false,
   };
+
+  breakpoints = new BreakpointsListener();
 
   loggedUserSubscription: Subscription;
   routerSubscription: Subscription;
@@ -69,11 +72,7 @@ export class LeftSideComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  getScreenSize(event?) {
-    const scrWidth = window.innerWidth;
-
-    this.dimensions.isMediumScreen = scrWidth <= 1250 ? true : false;
-    this.dimensions.isMediumToSmallScreen = scrWidth <= 1000 ? true : false;
-    this.dimensions.isSmallScreen = scrWidth <= 600 ? true : false;
+  getScreenSize(_event?: any) {
+    this.breakpoints.setBreakpoints(window.innerWidth);
   }
 }

@@ -54,11 +54,13 @@ export class PostComponent implements OnInit, OnDestroy {
       this.date = dateArr.join(' ');
 
       this.time = this.props.timestamp.toDate().toLocaleTimeString('en-US');
-      if(this.props.likes){
+      if (this.props.likes) {
         this.likes = this.props.likes;
 
-        if(this.currUser)
-        this.likedByLoggedUser = this.likes.includes(this.currUser.uid) ? true: false;
+        if (this.currUser)
+          this.likedByLoggedUser = this.likes.includes(this.currUser.uid)
+            ? true
+            : false;
       }
     }
   }
@@ -78,8 +80,8 @@ export class PostComponent implements OnInit, OnDestroy {
   deletePost(): void {
     this.deleteAlert = true;
     setTimeout(() => {
-      console.log(this.id);
       this.postService.deletePost(this.id);
+      this.deleteAlert = false;
     }, 3000);
   }
 
@@ -88,6 +90,7 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   unlikePost(): void {
-    this.currUser && this.postService.deleteLikeFromPost(this.id, this.currUser.uid);
+    this.currUser &&
+      this.postService.deleteLikeFromPost(this.id, this.currUser.uid);
   }
 }

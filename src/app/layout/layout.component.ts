@@ -7,7 +7,9 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { pageTitles, PageTitle } from '../shared/objects/page-titles';
+import { Title } from '@angular/platform-browser';
+import { BreakpointsListener } from '../shared/objects/breakpoints-listener';
 
 @Component({
   selector: 'app-layout',
@@ -18,44 +20,12 @@ export class LayoutComponent implements OnInit, OnChanges {
   @Input() showLayout: boolean;
   @Input() currentRoute: string;
 
-  dimensions = {
-    isMediumScreen: false,
-    isSmallScreen: false,
-    isMobile: false,
-  };
+  breakpoints = new BreakpointsListener();
 
-  pageTitles = [
-    {
-      path: '/home',
-      title: ' Home',
-    },
-    {
-      path: '/my-profile',
-      title: 'My Profile',
-    },
-    {
-      path: '/profile',
-      title: 'Profile',
-    },
-    {
-      path: '/explore',
-      title: 'Explore live posts',
-    },
-    {
-      path: '/notifications',
-      title: 'Notifications',
-    },
-    {
-      path: '/search',
-      title: 'Search',
-    },
-  ];
+  currentPageTitle: string;
+  pageTitles: PageTitle[] = pageTitles;
 
-  currentPageTitle: string = 'Title';
-
-  constructor(private scroll: ViewportScroller) {
-    this.getScreenSize();
-  }
+  constructor(private scroll: ViewportScroller, private titleService: Title) {}
 
   ngOnInit(): void {
     this.getScreenSize();
@@ -70,23 +40,25 @@ export class LayoutComponent implements OnInit, OnChanges {
   }
 
   private setPageTitle() {
-    const currentTitle = this.pageTitles.find(
-      (item) => this.currentRoute.includes(item.path)
+    const pageTitle = this.pageTitles.find((item) =>
+      this.currentRoute.includes(item.path)
     );
-    if (currentTitle) this.currentPageTitle = currentTitle.title;
-    else this.currentPageTitle = 'Title';
+
+    if (pageTitle) {
+      this.currentPageTitle = pageTitle.title;
+      this.titleService.setTitle(pageTitle.title + ' / Kitter'); // tab title
+    } else {
+      this.currentPageTitle = 'Title';
+      this.titleService.setTitle('Kitter'); // tab title
+    }
+  }
+
+  scrollToTop() {
+    this.scroll.scrollToPosition([0, 0]);
   }
 
   @HostListener('window:resize', ['$event'])
-  getScreenSize(event?) {
-    const scrWidth = window.innerWidth;
-
-    this.dimensions.isMediumScreen = scrWidth <= 1000 ? true : false;
-    this.dimensions.isSmallScreen = scrWidth <= 700 ? true : false;
-    this.dimensions.isMobile = scrWidth <= 450 ? true : false;
-  }
-
-  public scrollToTop() {
-    this.scroll.scrollToPosition([0, 0]);
+  getScreenSize(_event?: any) {
+    this.breakpoints.setBreakpoints(window.innerWidth);
   }
 }
