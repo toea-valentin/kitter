@@ -1,6 +1,29 @@
 # Kitter - a Twitter clone
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
+Demo: https://sample-twitter-clone.web.app/explore
+
+Public routes:
+  - '/' Start Page
+  - '/login'
+  - '/signup'
+  - '/explore'
+  - '/search'
+  - '/profile/:id' Any profile
+
+Private routes:
+  - '/home'
+  - '/my-profile'
+  - '/notifications'
+
+A logged user can do:
+  - Follow or unfollow other users
+  - Have a feed filled with posts from following users
+  - Like or unlike posts
+  - Edit his profile
+  - Write his own posts
+  - Delete his own posts with the options of undoing immediately
+  - Check in notifications when somebody started following them
+
 
 ## Development server
 
