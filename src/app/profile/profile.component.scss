@@ -59,7 +59,7 @@ $button-color: rgb(29, 161, 242);
   }
 }
 
-.edit-button {
+.simple-button {
   min-height: 48px;
   border-radius: 30px;
   padding-left: 20px;
@@ -76,7 +76,19 @@ $button-color: rgb(29, 161, 242);
   &:hover {
     background-color: rgb(230, 244, 253);
   }
+}
 
+.red-button {
+  background: rgb(202, 32, 85);
+  color: white;
+  box-shadow: 0 0 0 1px rgb(202, 32, 85);
+
+  &:hover {
+    background-color: rgb(160, 44, 81);
+  }
+}
+
+.edit-button {
   @media screen and (max-width: 450px) {
     padding-left: 10px;
     padding-right: 10px;
@@ -85,24 +97,6 @@ $button-color: rgb(29, 161, 242);
 }
 
 .logout-button {
-  display: block;
-  min-height: 48px;
-  border-radius: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-  color: red;
-  box-shadow: 0 0 0 1px red;
-
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 20px;
-
-  transition-duration: 0.2s;
-
-  &:hover {
-    background-color: rgb(255, 187, 187);
-  }
-
   @media screen and (min-width: 450px) {
     display: none;
   }

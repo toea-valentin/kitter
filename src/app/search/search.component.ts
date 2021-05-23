@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FollowService } from '../shared/services/follow.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -9,20 +8,15 @@ import { UserService } from '../shared/services/user.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  searchQuery: string;
-
   allUsers: any[];
   recommendedUsers: any[];
   foundUsers: any;
 
   usersSubscription: Subscription;
 
-  timer: any;
+  debouncer: any;
 
-  constructor(
-    private userService: UserService,
-    private followService: FollowService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.usersSubscription = this.userService
@@ -53,21 +47,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public searchOnInput(searchQuery: string): void {
-    this.searchQuery = searchQuery;
-    if (this.timer) clearTimeout(this.timer);
+    if (this.debouncer) clearTimeout(this.debouncer);
 
     if (searchQuery) {
       const result = this.allUsers.filter((user) => {
         return user.name.toLowerCase().includes(searchQuery.toLowerCase());
       });
 
-      this.timer = setTimeout(() => {
+      this.debouncer = setTimeout(() => {
         this.foundUsers = result.slice(0, 7);
-      }, 1000);
+      }, 700);
     } else {
-      this.timer = setTimeout(() => {
+      this.debouncer = setTimeout(() => {
         this.foundUsers = null;
-      }, 1000);
+      }, 700);
     }
   }
 

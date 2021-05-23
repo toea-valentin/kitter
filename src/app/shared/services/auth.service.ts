@@ -64,16 +64,13 @@ export class AuthService {
       .then((value) => {
         this.userFromFirestore(value.user.uid).subscribe((firestoreUser) => {
           let userData = firestoreUser.docs[0].data();
-          console.log(userData);
           this.userData.next(userData);
           localStorage.setItem('account', JSON.stringify(userData));
 
           this.router.navigateByUrl('/home');
         });
       })
-      .catch(
-        (error) => error && error.message && this.setError(error.message)
-      );
+      .catch((error) => error && error.message && this.setError(error.message));
   }
 
   emailSignup(name: string, email: string, password: string) {
@@ -97,15 +94,14 @@ export class AuthService {
           }
         });
       })
-      .catch(
-        (error) => error && error.message && this.setError(error.message)
-      );
+      .catch((error) => error && error.message && this.setError(error.message));
   }
 
   googleLogin() {
     this.error.next('');
 
     const provider = new firebase.auth.GoogleAuthProvider();
+
     return this.oAuthLogin(provider)
       .then((value) => {
         this.userFromFirestore(value.user.uid).subscribe((firestoreUser) => {
@@ -121,16 +117,13 @@ export class AuthService {
             this.addUserToFirestore(user);
           } else {
             let userData = firestoreUser.docs[0].data();
-            console.log(userData);
             this.userData.next(userData);
             localStorage.setItem('account', JSON.stringify(userData));
           }
           this.router.navigateByUrl('/home');
         });
       })
-      .catch((error) => {
-        console.log('Something went wrong: ', error);
-      });
+      .catch((error) => error && error.message && this.setError(error.message));
   }
 
   logOut() {

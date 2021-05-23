@@ -34,8 +34,8 @@ export class EditProfileComponent implements OnInit {
     this.error = '';
 
     if (
-      this.name.length < 2 &&
-      this.bio.length < 2 &&
+      this.name.length < 2 ||
+      this.bio.length < 2 ||
       this.location.length < 2
     ) {
       this.error = 'Fields must have at least 2 characters.';

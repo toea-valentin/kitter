@@ -62,6 +62,18 @@
     </div>
     <button class="btn login-button w-100 mb-3 mt-3">Create account</button>
   </form>
+  <button
+  class="google-button btn btn-outline-dark mb-3 d-flex align-items-center"
+  (click)="googleLogin()"
+>
+  <div class="google-icon p-2">
+    <img
+      alt="Google sign-in"
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+    />
+  </div>
+  Sign Up With Google
+</button>
   <a routerLink="/login">Already have an account? Log in!</a>
 </div>
 

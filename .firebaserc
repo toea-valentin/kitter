@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "sample-twitter-clone": {
+      "hosting": {
+        "twitter-clone": [
+          "sample-twitter-clone"
+        ]
+      }
+    }
+  }
+}

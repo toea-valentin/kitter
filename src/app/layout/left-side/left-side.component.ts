@@ -12,16 +12,10 @@ import { BreakpointsListener } from '../../shared/objects/breakpoints-listener';
   styleUrls: ['./left-side.component.scss'],
 })
 export class LeftSideComponent implements OnInit, OnDestroy {
-  menu: MenuItem[] = menu;
-
   loggedUser: any = null;
   currentRoute: string = null;
-  dimensions = {
-    isMediumScreen: false,
-    isMediumToSmallScreen: false,
-    isSmallScreen: false,
-  };
 
+  menu: MenuItem[] = menu;
   breakpoints = new BreakpointsListener();
 
   loggedUserSubscription: Subscription;
@@ -51,11 +45,6 @@ export class LeftSideComponent implements OnInit, OnDestroy {
     this.getScreenSize();
   }
 
-  ngOnDestroy(): void {
-    this.loggedUserSubscription.unsubscribe();
-    this.routerSubscription.unsubscribe();
-  }
-
   openPostModal(createPostModal) {
     this.loggedUser &&
       this.modalService.open(createPostModal, {
@@ -74,5 +63,10 @@ export class LeftSideComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   getScreenSize(_event?: any) {
     this.breakpoints.setBreakpoints(window.innerWidth);
+  }
+
+  ngOnDestroy(): void {
+    this.loggedUserSubscription.unsubscribe();
+    this.routerSubscription.unsubscribe();
   }
 }

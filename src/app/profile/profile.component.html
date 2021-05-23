@@ -22,7 +22,7 @@
     </div>
     <div class="btn-wrapper w-100 d-flex justify-content-end">
       <button
-        class="btn btn-primary"
+        class="btn simple-button"
         [disabled]="!loggedUser"
         *ngIf="!loggedUserProfile && !followed"
         (click)="followUser()"
@@ -30,21 +30,21 @@
         Follow
       </button>
       <button
-        class="btn btn-secondary"
+        class="btn simple-button red-button"
         *ngIf="!loggedUserProfile && followed"
         (click)="unfollowUser()"
       >
         Unfollow
       </button>
       <button
-        class="btn edit-button"
+        class="btn simple-button edit-button"
         *ngIf="loggedUserProfile"
         (click)="openProfileUpdateModal(content)"
       >
         Edit Profile
       </button>
       <button
-        class="btn logout-button"
+        class="btn simple-button red-button logout-button"
         *ngIf="loggedUserProfile"
         (click)="logOut()"
       >

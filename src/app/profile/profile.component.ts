@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   posts = [];
   followed = false;
 
-  closeResult = '';
   userSubscription: Subscription;
   userFollowingSubscription: Subscription;
   userFollowersSubscription: Subscription;
@@ -47,7 +46,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     //if on my-profile it is not triggered
     !this.onMyProfile &&
       this.route.params.subscribe((params) => {
-        this.cleanObservables();
+        this.cleanSubscriptions();
         this.user = null;
         this.posts = null;
         this.following = null;
@@ -57,29 +56,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private initLoggedUserData() {
-    this.authService.getUserData().subscribe((data) => {
-      this.loggedUser = data;
-      //if on my-profile init user with the logged user data
-      this.onMyProfile && this.initUserData(data.uid);
+    this.authService.getUserData().subscribe((userData) => {
+      if (userData) {
+        this.loggedUser = userData;
+        //if on my-profile init user with the logged user data
+        this.onMyProfile && this.initUserData(userData.uid);
+      }
     });
   }
 
   private initUserData(id: string) {
-    this.userSubscription = this.userService.getUserData(id).subscribe((data) => {
-      if (data.length && data[0].payload.doc.data()) {
-        this.user = data[0].payload.doc.data()
-        this.user = { ...this.user, exists: true };
-        this.isLoggedUserProfile();
-        this.getPosts();
-        this.getUserFollowing();
-        this.getUserFollowers();
-        this.isFollowedByLoggedUser();
-      } else {
-        this.user = {
-          exists: false,
-        };
-      }
-    });
+    this.userSubscription = this.userService
+      .getUserData(id)
+      .subscribe((data) => {
+        if (data.length && data[0].payload.doc.data()) {
+          this.user = data[0].payload.doc.data();
+          this.user = { ...this.user, exists: true };
+          this.isLoggedUserProfile();
+          this.getPosts();
+          this.getUserFollowing();
+          this.getUserFollowers();
+          this.isFollowedByLoggedUser();
+        } else {
+          this.user = {
+            exists: false,
+          };
+        }
+      });
   }
 
   private getPosts() {
@@ -155,22 +158,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   openProfileUpdateModal(content) {
-    this.modalService
-      .open(content);
+    this.modalService.open(content);
   }
 
   closeProfileUpdateModal(val: boolean, modal) {
     if (val) modal.close();
   }
 
-  private cleanObservables() {
+  private cleanSubscriptions() {
     this.userSubscription && this.userSubscription.unsubscribe();
     this.postsSubscription && this.postsSubscription.unsubscribe();
-    this.userFollowingSubscription && this.userFollowingSubscription.unsubscribe();
-    this.userFollowersSubscription && this.userFollowersSubscription.unsubscribe();
+    this.userFollowingSubscription &&
+      this.userFollowingSubscription.unsubscribe();
+    this.userFollowersSubscription &&
+      this.userFollowersSubscription.unsubscribe();
   }
 
   ngOnDestroy() {
-    this.cleanObservables();
+    this.cleanSubscriptions();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 import { NotificationService } from '../shared/services/notification.service';
@@ -8,7 +8,7 @@ import { NotificationService } from '../shared/services/notification.service';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
 })
-export class NotificationsComponent implements OnInit, OnDestroy, DoCheck {
+export class NotificationsComponent implements OnInit, OnDestroy {
   notifications: any;
   notificationSubscription: Subscription;
   authSubscription: Subscription;
@@ -28,14 +28,11 @@ export class NotificationsComponent implements OnInit, OnDestroy, DoCheck {
           .getNotifications(userData.uid)
           .subscribe((data) => {
             this.notifications = data.map((e) => e.payload.doc.data());
-            console.log(this.notifications);
           });
       });
   }
 
-  ngDoCheck() {}
-
-  transformDateTime(timestamp){
+  transformDateTime(timestamp) {
     let date = timestamp.toDate().toDateString();
     let dateArr = date.split(' ');
     dateArr.splice(0, 1);

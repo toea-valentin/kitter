@@ -77,4 +77,16 @@ $button-color: rgb(29, 161, 242);
 
 .google-button {
   border-radius: 30px;
+  font-weight: bold;
+
+  .google-icon {
+    img {
+      height: 20px;
+    }
+  }
+
+  &:hover {
+    color: black;
+    background-color: rgb(240, 240, 240);
+  }
 }

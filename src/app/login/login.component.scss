@@ -78,6 +78,7 @@ $google-blue: #4285f4;
 
 .google-button {
   border-radius: 30px;
+  font-weight: bold;
 
   .google-icon {
     img {
@@ -86,6 +87,7 @@ $google-blue: #4285f4;
   }
 
   &:hover {
-    background-color: $button-color;
+    color: black;
+    background-color: rgb(240, 240, 240);
   }
 }
