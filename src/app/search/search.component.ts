@@ -38,11 +38,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private generateRecommendedUsers(users: any[]): void {
-    //subtract logged user from all users
-    users.splice(
-      users.findIndex((u) => u.uid === this.loggedUser.uid),
-      1
-    );
+    //substract logged user from all users
+    this.loggedUser &&
+      users.splice(
+        users.findIndex((u) => u.uid === this.loggedUser.uid),
+        1
+      );
 
     this.recommendedUsers = [];
 
