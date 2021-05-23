@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from '../shared/interfaces/user';
+import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -8,41 +10,46 @@ import { UserService } from '../shared/services/user.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  loggedUser: User;
   allUsers: any[];
   recommendedUsers: any[];
   foundUsers: any;
-
-  usersSubscription: Subscription;
-
   debouncer: any;
 
-  constructor(private userService: UserService) {}
+  usersSubscription: Subscription;
+  loggedUsersSubscription: Subscription;
+
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.loggedUsersSubscription = this.authService
+      .getUserData()
+      .subscribe((userData) => (this.loggedUser = userData));
+
     this.usersSubscription = this.userService
       .getAllUsers()
       .subscribe((users) => {
-        this.allUsers = users.docs.map((e) => e.data());
+        this.allUsers = users.map((e) => e.payload.doc.data());
         this.generateRecommendedUsers([...this.allUsers]);
       });
   }
 
-  private generateRecommendedUsers(users): void {
+  private generateRecommendedUsers(users: any[]): void {
+    //subtract logged user from all users
+    users.splice(
+      users.findIndex((u) => u.uid === this.loggedUser.uid),
+      1
+    );
+
     this.recommendedUsers = [];
 
     if (users.length < 5) {
       this.recommendedUsers = users;
     } else {
-      let counter = 5; // maximum number of recommended users
-
-      while (counter) {
-        let index = Math.floor(Math.random() * users.length);
-        this.recommendedUsers.push(users[index]);
-
-        users.splice(index, 1);
-
-        counter--;
-      }
+      this.recommendedUsers = users.slice(0, 5);
     }
   }
 
@@ -65,6 +72,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.loggedUsersSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 }

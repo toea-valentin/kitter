@@ -85,6 +85,7 @@ $button-color: rgb(29, 161, 242);
 
 .post-button {
   height: 54px;
+  min-width: 230px;
   border-radius: 30px;
   color: white;
   background-color: $button-color;
@@ -98,20 +99,24 @@ $button-color: rgb(29, 161, 242);
   &:hover {
     background-color: rgb(22, 128, 194);
   }
+
+  @media screen and (max-width: 1250px) {
+    min-width: 0px;
+  }
 }
 
 .post-icon {
   font-size: 20px;
 }
 
-.below{
+.below {
   margin-bottom: 12px;
 }
 
 .user-button {
   padding-left: 10px;
   padding-right: 10px;
-  min-width: 230px;
+  min-width: 250px;
   width: 100%;
   border-radius: 60px;
   outline: none;
@@ -159,7 +164,7 @@ $button-color: rgb(29, 161, 242);
 }
 
 .pop-container {
-  min-width: 206px;
+  min-width: 226px;
 
   .user-info {
     .username {
