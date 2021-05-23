@@ -52,4 +52,5 @@
 
 <ngb-alert [dismissible]="true" *ngIf="deleteAlert">
   <i class="bi bi-exclamation-triangle"></i> You just deleted this post.
+  <button class="btn" (click)="cancelDeletePost()"><b>UNDO</b></button>
 </ngb-alert>

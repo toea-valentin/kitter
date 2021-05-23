@@ -28,6 +28,7 @@ export class PostComponent implements OnInit, OnDestroy {
   canDelete: boolean;
   deleteAlert: boolean = false;
 
+  deleteDebouncer: any;
   userSubscription: Subscription;
 
   constructor(
@@ -36,11 +37,6 @@ export class PostComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.userSubscription = this.authService.getUserData().subscribe((data) => {
-      this.currUser = data;
-      this.canDelete = this._canDelete();
-    });
-
     if (this.props) {
       this.id = this.props.id;
       this.uid = this.props.uid;
@@ -52,37 +48,42 @@ export class PostComponent implements OnInit, OnDestroy {
       let dateArr = this.date.split(' ');
       dateArr.splice(0, 1);
       this.date = dateArr.join(' ');
-
       this.time = this.props.timestamp.toDate().toLocaleTimeString('en-US');
+
       if (this.props.likes) {
         this.likes = this.props.likes;
-
-        if (this.currUser)
-          this.likedByLoggedUser = this.likes.includes(this.currUser.uid)
-            ? true
-            : false;
       }
     }
+
+    this.userSubscription = this.authService.getUserData().subscribe((data) => {
+      this.currUser = data;
+      this.canDelete = this.checkCanDelete();
+      if (this.currUser) this.likedByLoggedUser = this.checkLikedByLoggedUser();
+    });
   }
 
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+  checkLikedByLoggedUser(): boolean {
+    return this.likes.includes(this.currUser.uid) ? true : false;
   }
 
-  _canDelete(): boolean {
-    return !this.props || !this.currUser
-      ? false
-      : this.props.uid === this.currUser.uid
-      ? true
-      : false;
+  checkCanDelete(): boolean {
+    if (this.props && this.currUser && this.props.uid === this.currUser.uid) {
+      return true;
+    }
+
+    return false;
   }
 
   deletePost(): void {
     this.deleteAlert = true;
-    setTimeout(() => {
+    this.deleteDebouncer = setTimeout(() => {
       this.postService.deletePost(this.id);
-      this.deleteAlert = false;
     }, 3000);
+  }
+
+  cancelDeletePost(): void {
+    clearTimeout(this.deleteDebouncer);
+    this.deleteAlert = false;
   }
 
   likePost(): void {
@@ -92,5 +93,9 @@ export class PostComponent implements OnInit, OnDestroy {
   unlikePost(): void {
     this.currUser &&
       this.postService.deleteLikeFromPost(this.id, this.currUser.uid);
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 }
