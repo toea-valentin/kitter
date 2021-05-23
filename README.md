@@ -1,6 +1,6 @@
 # Kitter - a Twitter clone
 
-Demo: https://sample-twitter-clone.web.app/explore
+Demo: https://sample-twitter-clone.web.app/
 
 Public routes:
   - '/' Start Page
